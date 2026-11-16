@@ -1,0 +1,29 @@
+name: Build PC Helper
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install libraries
+        run: pip install pyTelegramBotAPI pyinstaller
+
+      - name: Build EXE
+        run: pyinstaller --onefile --windowed pc_helper.py --name PC-Helper
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: PC-Helper
+          path: dist/PC-Helper.exe
