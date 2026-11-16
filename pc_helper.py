@@ -3,24 +3,37 @@ from tkinter import messagebox
 
 root = tk.Tk()
 root.title("PC Helper")
-root.geometry("300x180")
+root.geometry("320x200")
+root.resizable(False, False)
 
 status = tk.Label(
     root,
-    text="Помощник запущен",
+    text="PC Helper запущен",
     font=("Arial", 14)
 )
 status.pack(pady=25)
 
-def stop():
-    if messagebox.askyesno("Выход", "Отключить помощник?"):
-        root.destroy()
+def notify():
+    messagebox.showinfo(
+        "PC Helper",
+        "Уведомление: скриншот создан"
+    )
 
 button = tk.Button(
     root,
-    text="Отключить",
-    command=stop
+    text="Проверить уведомление",
+    command=notify
 )
 button.pack(pady=10)
+
+def stop():
+    if messagebox.askyesno("PC Helper", "Отключить программу?"):
+        root.destroy()
+
+tk.Button(
+    root,
+    text="Отключить",
+    command=stop
+).pack(pady=5)
 
 root.mainloop()
